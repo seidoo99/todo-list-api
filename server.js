@@ -6,6 +6,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 3000
+
+// app.get('/pets/index.html', function(req, res, next) {
+//     res.json('hello from our pets api');
+//     next();
+// })
+
+// app.use(express.static(__dirname + '/public'));
+
 var todoList = [{
     id: 1,
     todo: "Implement a REST API"
@@ -45,16 +53,19 @@ app.post('/api/todos', function(req, res, next) {
     // PUT /api/todos/:id
 app.put('/api/todos/:id', function(req, res, next) {
         let id = parseInt(req.params.id);
-        let updateId = todolist.find(todo => {
-                return todo.id === id;
-            })
-            // let updateObj = {
-            //     id: updateId,
-            //     todo: req.body.todo
-            // }
-        var name = req.body.todo;
+        const updateTodo = todolist.find(todo => todo.id === id);
+        updateTodo.todo = req.body.todo;
+        res.send(updateTodo);
+        // let updateId = todolist.find(todo =>{
+        //     return todo.id === id;
+        // })
+        //     return todo.id === id;
+        // })
+        // let updateObj = {
+        //     id: updateId,
+        //     todo: req.body.todo
+        // }
         // todoList.push(updateObj)
-        res.send(name);
         // res.send(updateId)
 
     })
